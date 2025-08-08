@@ -1,12 +1,11 @@
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { useMaskSettings } from '../../constants'
 
+import { useMaskSettings } from '../../constants'
 import ComingSoon from './ComingSoon'
 
 const Hero = () => {
-  const { initialMaskPos, initialMaskSize, maskPos, maskSize } =
-    useMaskSettings()
+  const { initialMaskPos, initialMaskSize, maskSize } = useMaskSettings()
 
   useGSAP(() => {
     gsap.set('.mask-wrapper', {
@@ -14,14 +13,9 @@ const Hero = () => {
       maskSize: initialMaskSize,
     })
 
-    gsap.set('.mask-logo', {
-      marginTop: '-100vh',
-      opacity: 0,
-    })
+    gsap.set('.mask-logo', { marginTop: '-100vh', opacity: 0 })
 
-    gsap.set('.entrance-message', {
-      marginTop: '0vh',
-    })
+    gsap.set('.entrance-message', { marginTop: '0vh' })
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -34,29 +28,15 @@ const Hero = () => {
     })
 
     tl.to('.fade-out', { opacity: 0, ease: 'power1.inOut' })
-      .to('.scale-out', {
-        scale: 1,
-        ease: 'power1.inOut',
-      })
-      .to(
-        '.mask-wrapper',
-        {
-          maskSize: maskSize,
-          ease: 'power1.inOut',
-        },
-        '<',
-      )
-      .to('.mask-wrapper', {
-        opacity: 0,
-      })
+      .to('.scale-out', { scale: 1, ease: 'power1.inOut' })
+      .to('.mask-wrapper', { maskSize, ease: 'power1.inOut' }, '<')
+      .to('.mask-wrapper', { opacity: 0 })
       .to(
         '.overlay-logo',
         {
           opacity: 1,
           onComplete: () => {
-            gsap.to('.overlay-logo', {
-              opacity: 0,
-            })
+            gsap.to('.overlay-logo', { opacity: 0 })
           },
         },
         '<',
@@ -78,38 +58,34 @@ const Hero = () => {
       <div className="size-full mask-wrapper">
         <img
           src="/images/hero-bg.webp"
+          alt="background"
           className="scale-out"
-          alt="Hero Image"
         />
         <img
           src="/images/hero-text.webp"
-          alt="Hero Logo"
+          alt="hero-logo"
           className="title-logo fade-out"
         />
         <img
           src="/images/watch-trailer.png"
-          alt="Trailer"
+          alt="trailer"
           className="trailer-logo fade-out"
         />
         <div className="play-img fade-out">
-          <img src="/images/play.png" alt="Play Icon" className="w-7 ml-1" />
+          <img src="/images/play.png" alt="play" className="w-7 ml-1" />
         </div>
       </div>
 
       <div>
         <img
           src="/images/big-hero-text.svg"
-          alt="Hero Text"
+          alt="logo"
           className="size-full object-cover mask-logo"
         />
       </div>
 
       <div className="fake-logo-wrapper">
-        <img
-          src="/images/big-hero-text.svg"
-          alt="Hero Text"
-          className="overlay-logo"
-        />
+        <img src="/images/big-hero-text.svg" className="overlay-logo" />
       </div>
 
       <ComingSoon />
